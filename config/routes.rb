@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'reviews/new'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")
@@ -15,4 +16,8 @@ Rails.application.routes.draw do
       get :chef
     end
   end
+  resources :restaurants do
+    resources :reviews, only: %i[new create]
+  end
+  resources :reviews, only: :destroy
 end
