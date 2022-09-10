@@ -3,5 +3,16 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
-  resources :restaurants
+
+  # to get # top_restaurants  GET  /restaurants/top(.:format)  restaurants#top
+  resources :restaurants do
+    collection do
+      get :top
+    end
+  end
+  resources :restaurants do
+    member do
+      get :chef
+    end
+  end
 end

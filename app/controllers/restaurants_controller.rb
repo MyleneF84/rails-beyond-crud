@@ -1,5 +1,5 @@
 class RestaurantsController < ApplicationController
-  before_action :set_restaurant, only: %i[ show edit update destroy ]
+  before_action :set_restaurant, only: %i[ show edit update destroy chef]
 
   # GET /restaurants
   def index
@@ -45,14 +45,23 @@ class RestaurantsController < ApplicationController
     redirect_to restaurants_url, notice: "Restaurant was successfully destroyed."
   end
 
-  private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_restaurant
-      @restaurant = Restaurant.find(params[:id])
-    end
+  def top
+    @restaurants = Restaurant.where(rating: 5)
+  end
 
-    # Only allow a list of trusted parameters through.
-    def restaurant_params
-      params.require(:restaurant).permit(:name, :address, :rating)
-    end
+  def chef
+    @chef_name = @restaurant.chef_name
+  end
+
+  private
+
+  # Use callbacks to share common setup or constraints between actions.
+  def set_restaurant
+    @restaurant = Restaurant.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def restaurant_params
+    params.require(:restaurant).permit(:name, :address, :rating)
+  end
 end
